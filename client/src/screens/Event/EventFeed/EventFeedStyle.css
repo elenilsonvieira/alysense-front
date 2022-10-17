@@ -1,0 +1,65 @@
+
+
+.EventFeed .main-container{
+    padding-top: 15%;
+    padding-bottom: 5%;
+    width: 60vw;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.EventFeed .half-container{
+    justify-content: space-between;
+    display: flex;
+}
+
+.EventFeed .title{
+    text-align: center;
+}
+
+.EventFeed .titulo{
+    width: 30%;
+}
+
+.EventFeed .local{
+    width: 30%;
+}
+
+.EventFeed .dateEvent{
+    width: 30%;
+}
+
+.EventFeed .action-button {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.EventFeed .action-button .btn{
+    margin-top: 2%;
+    width: 20%;
+}
+
+.EventFeed .btn-info{
+    width:30px;
+    height: 30px;
+    padding: 3px 0px 0px 2px;
+}
+.EventFeed .btn-danger{
+    width:30px;
+    height: 30px;
+    padding: 1px 1px 0px 0px;
+}
+.EventFeed svg{
+    vertical-align: baseline;
+}
+.EventFeed td{
+    padding:3px;
+    vertical-align: middle;
+}
+
+.EventFeed td .btn{
+    margin: 10px;
+}

@@ -1,0 +1,84 @@
+.event-create .EventCreate-header{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-create .main-container{
+    padding-top: 15%;
+    padding-bottom: 5%;
+    width: 60vw;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+}
+
+.event-create .title{
+    text-align: center;
+}
+
+.event-create .half-container{
+    justify-content: space-between;
+    display: flex;
+}
+
+.event-create .local{
+    width: 68%;
+}
+
+.event-create .dateEvent{
+    width: 30%;
+}
+
+
+
+.event-create .CardTable{
+    display: flex;
+}
+
+.event-create .CardTable .card-body{
+    height: 25vh;
+    width: 25vw;
+    overflow-y: scroll;
+}
+
+.event-create .EventCreate .action-button {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.event-create .EventCreate .action-button .btn{
+    width: 30%;
+}
+
+.modalContent{
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.close-button{
+    height: 50px;
+    width: 70vw;
+    
+}
+.modal-table-user-products{
+    height: 65vh;
+    overflow-y: scroll;
+    display: none;
+
+}
+.modal-table-prod-avaliation{
+    display: none;
+}
+
+.active-tab-modal{
+    display: flex;
+}
+.active-tab-avaliadion{
+    display: block;
+}
+
+.conteiner-down{
+    width: 83%;
+}

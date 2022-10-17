@@ -1,0 +1,76 @@
+.EventUpdate .EventUpdate-header{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding-right: 5%;
+    padding-left: 5%;
+    box-shadow: 0 0 1em rgb(12, 11, 5);
+    
+}
+
+.EventUpdate{
+    background-color: #EB6864;
+    width: 98.8vw;
+    height: 112vh;
+    display: flex;
+    justify-content: center;
+}
+
+.EventUpdate .main-container{
+    padding-top: 15%;
+    padding-bottom: 5%;
+    width: 60vw;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+
+.EventUpdate .title{
+    text-align: center;
+}
+
+.EventUpdate .half-container{
+    justify-content: space-between;
+    display: flex;
+}
+
+.EventUpdate .local{
+    width: 68%;
+}
+
+.EventUpdate .dateEvent{
+    width: 30%;
+}
+
+.EventUpdate .samples{
+    margin-right:43%;
+}
+
+.EventUpdate .CardTable{
+    display: flex;
+}
+
+.EventUpdate .CardTable .card-body{
+    height: 25vh;
+    width: 25vw;
+}
+
+.EventUpdate .action-button {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.EventUpdate .action-button .btn{
+    width: 30%;
+}
+
+.EventUpdate .EventTable{
+    margin-top:2%;
+}
+
+.EventUpdate .button-test{
+    top: 0%;
+}

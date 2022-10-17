@@ -1,0 +1,77 @@
+.register .register-container{
+    width: 35vw;
+    height: 100vh;
+    box-shadow: 0 0 1em rgb(12, 11, 5);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 2vh;
+    
+}
+.register .register-form{
+    width: 70%;
+    
+}
+.register .register-form .big-form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+    
+}
+.register .register-form form{
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+    
+}
+
+.register{
+    background-color: #EB6864;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.register .input-container .form-group{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+.register .input-container label{
+    display: none;
+}
+
+.register svg{ 
+    width: 30px;
+    height: 30px;
+}
+.register input{
+    border: 3px solid #EB6864;
+    width: 90%;
+}
+
+.register .title{
+    text-align: center;
+}
+
+.register .action-button {
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+.register .action-button .btn{
+    width: 50%;
+}
+
+.register .register-container h6{ 
+    font-size: 1rem;
+    text-align: center;
+}
+
+
+
