@@ -10,7 +10,7 @@ export default class CardProduct extends React.Component {
 
             <div className="card-table">
                 <div className="half-head">
-                    <label className="form-label mt-4" htmlFor={this.props.htmlFor}>{this.props.label}</label>
+                    <label className="form-label mt-4" htmlFor={this.props.htmlFor}>{this.props.label}</label> 
                     <button  onClick={this.props.find} type="button" className="btn btn-primary">{this.props.action}</button>
                 </div>
 

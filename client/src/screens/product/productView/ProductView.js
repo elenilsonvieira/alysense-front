@@ -100,7 +100,6 @@ export default class ProductView extends React.Component {
 
     }
     
-
     
     remove = async (ProdID) => {
         await this.service.delete(ProdID)

@@ -81,7 +81,7 @@ export default class ProductCreate extends React.Component {
 
     this.setState({ showSamples: this.state.showSamples.filter((item) => item.id !== SampleName) })
 
-  }
+  } 
   eraseCharact = (Charactatribute) => {
 
     this.setState({ charact: this.state.charact.filter((item) => item.atribute !== Charactatribute) })
@@ -117,7 +117,7 @@ export default class ProductCreate extends React.Component {
     }).then(response => {
       console.log(response)
       showSucessMessage("Produto Criado!");
-      this.props.history.push(`/ProductView/`);
+      this.props.history.push('/newEvent');
     }).catch(error => {
       showWarningMessage("Erro ao criar produto")
       console.log(error.response)

@@ -8,6 +8,7 @@ import ProductEvent from '../../../components/tables/Product/ProductEvent';
 import { showSucessMessage, showErrorMessage, showWarningMessage } from '../../../components/Toastr/Toastr'
 import Modal from 'react-modal';
 import AvaliationApiService from '../../../services/AvaliationApiService';
+import axios from 'axios';
 
 import ProductApiService from '../../../services/ProductApiService';
 
@@ -16,7 +17,7 @@ export default class  EventCreate extends React.Component {
 
     componentDidMount() {
         Modal.setAppElement('#root');
-        this.setState({ isVisible: false })
+        this.findProducts();
     }
 
     state = {
@@ -33,8 +34,6 @@ export default class  EventCreate extends React.Component {
 
         id: '',
         name: '',
-        isVisible: false,
-        addedProducts: [],
         avaliation: [],
         toggleAvaliation:false
 
@@ -153,18 +152,23 @@ export default class  EventCreate extends React.Component {
 
     }
 
-     openModal = () => {
-        document.body.style.overflowY = "hidden";
+     findProducts = () => {
         this.find();
-        this.setState({ isVisible: true })
-
+    
     }
-    closeModal = () => {
-        document.body.style.overflowY = "scroll";
-        this.setState({ isVisible: false })
-
+    remove = (product) => {
+        axios.delete(`http://localhost:8081/api/product/${product.id}`)
+        .then( response =>
+            {
+                console.log(response);
+                this.findProducts();
+            }
+        ).catch ( error =>
+            {
+                console.log(error.response);
+            }
+        )
     }
-    remove = () => { }
     addAvaliation = () => {
         const elements = document.getElementsByClassName("checkAspect");
 
@@ -193,76 +197,13 @@ export default class  EventCreate extends React.Component {
         this.state.addedProducts.push(product)
     }
 
+    openProductViews = () => {
+        this.props.history.push('/newProduct');
+    }
+
     render() {
         return (
             <div className="event-create">
-
-                <Modal
-                    isOpen={this.state.isVisible}
-                    onRequestClose={this.closeModal}
-                    style={{
-                        overlay: {
-                            position: 'fixed',
-                            zIndex: 1020,
-                            top: 0,
-                            left: 0,
-                            width: '100vw',
-                            height: '100vh',
-                            background: 'rgba(235,104,100, 0.75)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        },
-                        content: {
-                            background: 'white',
-                            width: '70vw',
-                            height: '80vh',
-                            maxWidth: 'calc(100vw - 2rem)',
-                            maxHeight: 'calc(100vh - 2rem)',
-                            overflowY: 'hidden',
-                            position: 'relative',
-                            border: '1px solid #ccc',
-                            borderRadius: '0.3rem',
-                        }
-                    }}
-                >
-                    <div className="modalContent" id="modalContent">
-                        <div className="close-button">
-                            <button onClick={this.closeModal} className="btn btn-primary">x</button>
-                        </div>
-
-                        {/* <div className={this.state.toggleAvaliation === false? "modal-table-user-products active-tab-modal": "modal-table-user-products"}>
-                            <ProductEvent collection={this.state.products} remove={this.addon}></ProductEvent>
-                        </div>
-
-                        <div className={this.state.toggleAvaliation === true? "modal-table-prod-avaliation active-tab-avaliadion": "modal-table-prod-avaliation"}>
-                            <h2>Avaliações</h2>
-                            <div>
-                                <input className="checkAspect" type="checkbox" id="APARENCIA" name="APARENCIA" value="APARENCIA" />
-                                <label htmlFor="APARENCIA">APARENCIA</label>
-                            </div>
-                            <div>
-                                <input className="checkAspect" type="checkbox" id="ODOR" name="ODOR" value="ODOR" />
-                                <label htmlFor="ODOR">ODOR</label>
-                            </div>
-                            <div>
-                                <input className="checkAspect" type="checkbox" id="SABOR" name="SABOR" value="SABOR" />
-                                <label htmlFor="SABOR">SABOR</label>
-                            </div>
-                            <div>
-                                <input className="checkAspect" type="checkbox" id="SOM" name="SOM" value="SOM" />
-                                <label htmlFor="SOM">SOM</label>
-                            </div>
-                            <div>
-                                <input className="checkAspect" type="checkbox" id="TEXTURA" name="TEXTURA" value="TEXTURA" />
-                                <label htmlFor="TEXTURA">TEXTURA</label>
-                            </div>
-                            <button className="btn btn-primary" onClick={this.addAvaliation}>Adicionar</button>
-                        </div> */}
-                    </div>
-
-
-                </Modal>
                 <header className="EventCreate-header">
                     <div className="main-container">
                         <BigForm title="CRIAR NOVO EVENTO" submit={this.submit} action="Adicionar">
@@ -310,11 +251,11 @@ export default class  EventCreate extends React.Component {
                             </div>
                             <br/>
                             <br/>
-                            {/* <div className='CardTable'>
-                                <CardProduct action='Adicionar' find={this.openModal} collection={this.state.addedProducts} remove={this.remove}
-                                    label='Produtos' >
+                            <div className='CardTable'>
+                                <CardProduct action='Adicionar' find={this.openProductViews}  collection={this.state.products} remove={this.remove}
+                                   label='Produtos' >
                                 </CardProduct>
-                            </div> */}
+                            </div>
 
                         </BigForm>
                     </div>
