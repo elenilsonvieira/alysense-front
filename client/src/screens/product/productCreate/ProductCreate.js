@@ -18,6 +18,7 @@ export default class ProductCreate extends React.Component {
     userId: '',
     charact: [],
     samples: [],
+    avaliations: [],
     isVisibleCharact: false,
     isVisibleSample: false,
 
@@ -25,6 +26,7 @@ export default class ProductCreate extends React.Component {
 
     },
     newSample: {
+
     },
     showSamples: []
   }
@@ -109,6 +111,7 @@ export default class ProductCreate extends React.Component {
       ingredients: this.state.ingredients,
       characteristics: this.state.charact,
       samples: this.state.samples,
+      avaliations: this.state.avaliations,
       userId: this.state.userId
 
     }).then(response => {
@@ -116,6 +119,7 @@ export default class ProductCreate extends React.Component {
       showSucessMessage("Produto Criado!");
       this.props.history.push(`/ProductView/`);
     }).catch(error => {
+      showWarningMessage("Erro ao criar produto")
       console.log(error.response)
     });
 
@@ -252,8 +256,8 @@ export default class ProductCreate extends React.Component {
                 <button onClick={this.closeModalSample} className="btn btn-primary">x</button>
               </div>
               <h3>Amostra</h3>
-              <FormGroup htmlFor="obs" label="Observação">
-                <input className='form-control' type="text" placeholder='Observação' id='obs' onChange={(e) => { this.setState({ newSample: e.target.value }) }} />
+              <FormGroup htmlFor="obs" label="Descrição">
+                <input className='form-control' type="text" placeholder='Digite a descrição da amostra' id='obs' onChange={(e) => { this.setState({ newSample: e.target.value }) }} />
               </FormGroup>
               <button type="button" className="btn btn-primary" onClick={this.addSample}>Adicionar</button>
             </div>
@@ -264,14 +268,14 @@ export default class ProductCreate extends React.Component {
           <BigForm title="ADICIONAR NOVO PRODUTO" submit={this.submit} action="Adicionar">
             <div className="name">
               <FormGroup htmlFor="name" label="Nome" className="name">
-                <input className='form-control' type="text" placeholder='Nome' id='name' onChange={(e) => { this.setState({ name: e.target.value }) }} />
+                <input className='form-control' type="text" placeholder='Digite o nome do produto' id='name' onChange={(e) => { this.setState({ name: e.target.value }) }} />
               </FormGroup>
             </div>
 
             <div className="half-container">
               <div className="owner">
                 <FormGroup htmlFor="owner" label="Fornecedor">
-                  <input className='form-control' type="text" placeholder='Fornecedor' id='owner' onChange={(e) => { this.setState({ owner: e.target.value }) }} />
+                  <input className='form-control' type="text" placeholder='Digite o nome do fornecedor' id='owner' onChange={(e) => { this.setState({ owner: e.target.value }) }} />
                 </FormGroup>
               </div>
 

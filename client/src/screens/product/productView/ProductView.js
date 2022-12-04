@@ -139,12 +139,12 @@ export default class ProductView extends React.Component {
                         <div className="form-line">
                             <div className="name">
                                 <FormGroup htmlFor="name" label="Nome" className="name">
-                                    <input className='form-control' type="text" placeholder='Nome' id='name' onChange={(e) => { this.setState({ name: e.target.value }) }} />
+                                    <input className='form-control' type="text" placeholder='Digite o nome do produto' id='name' onChange={(e) => { this.setState({ name: e.target.value }) }} />
                                 </FormGroup>
                             </div>
                             <div className="owner">
                                 <FormGroup htmlFor="owner" label="Fornecedor">
-                                    <input className='form-control' type="text" placeholder='Fornecedor' id='owner' onChange={(e) => { this.setState({ owner: e.target.value }) }} />
+                                    <input className='form-control' type="text" placeholder='Digite o nome do fornecedor' id='owner' onChange={(e) => { this.setState({ owner: e.target.value }) }} />
                                 </FormGroup>
                             </div>
 

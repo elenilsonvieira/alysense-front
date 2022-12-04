@@ -5,14 +5,13 @@ import FormGroup from '../../../components/forms/FormGroup';
 import CardProduct from '../../../components/tables/Product/CardProduct';
 import EventApiService from '../../../services/EventApiService';
 import ProductEvent from '../../../components/tables/Product/ProductEvent';
-import { showSucessMessage, showErrorMessage } from '../../../components/Toastr/Toastr'
+import { showSucessMessage, showErrorMessage, showWarningMessage } from '../../../components/Toastr/Toastr'
 import Modal from 'react-modal';
 import AvaliationApiService from '../../../services/AvaliationApiService';
 
 import ProductApiService from '../../../services/ProductApiService';
 
-export default class EventCreate extends React.Component {
-
+export default class  EventCreate extends React.Component {
 
 
     componentDidMount() {
@@ -24,12 +23,12 @@ export default class EventCreate extends React.Component {
         title: '',
         local: '',
         dateEvent: '',
-        qtdParticipants: 0,
-        qtdSamples: 0,
+        qtdParticipants: 1,
+        qtdSamples: 1,
         products: [],
-        admUser: null,
+        admUser: '',
         avaliators: [],
-        minimunAge:0,
+        minimunAge:1,
 
 
         id: '',
@@ -146,16 +145,15 @@ export default class EventCreate extends React.Component {
             console.log(response)
             showSucessMessage("Evento Criado!");
         }).catch(error => {
+            showWarningMessage("Erro ao criar evento!");
             console.log(error.response)
         });
         })
         console.log("request finished");
 
-
-
     }
 
-    openModal = () => {
+     openModal = () => {
         document.body.style.overflowY = "hidden";
         this.find();
         this.setState({ isVisible: true })
@@ -233,7 +231,7 @@ export default class EventCreate extends React.Component {
                             <button onClick={this.closeModal} className="btn btn-primary">x</button>
                         </div>
 
-                        <div className={this.state.toggleAvaliation === false? "modal-table-user-products active-tab-modal": "modal-table-user-products"}>
+                        {/* <div className={this.state.toggleAvaliation === false? "modal-table-user-products active-tab-modal": "modal-table-user-products"}>
                             <ProductEvent collection={this.state.products} remove={this.addon}></ProductEvent>
                         </div>
 
@@ -260,7 +258,7 @@ export default class EventCreate extends React.Component {
                                 <label htmlFor="TEXTURA">TEXTURA</label>
                             </div>
                             <button className="btn btn-primary" onClick={this.addAvaliation}>Adicionar</button>
-                        </div>
+                        </div> */}
                     </div>
 
 
@@ -269,9 +267,9 @@ export default class EventCreate extends React.Component {
                     <div className="main-container">
                         <BigForm title="CRIAR NOVO EVENTO" submit={this.submit} action="Adicionar">
                             <div className='titulo'>
-                                <FormGroup label="Titulo">
+                                <FormGroup label="Título">
                                     <input type='titulo' className='form-control' id='inputTitulo'
-                                        placeholder='titulo' value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })}></input>
+                                        placeholder='Digite o título do evento' value={this.state.title} onChange={(e) => this.setState({ title: e.target.value })}></input>
                                 </FormGroup>
                             </div>
 
@@ -279,13 +277,13 @@ export default class EventCreate extends React.Component {
                                 <div className='local'>
                                     <FormGroup label="Local">
                                         <input type='local' className='form-control' id='inputLocal'
-                                            placeholder='local' value={this.state.local} onChange={(e) => this.setState({ local: e.target.value })}></input>
+                                            placeholder='Digite o local do evento' value={this.state.local} onChange={(e) => this.setState({ local: e.target.value })}></input>
                                     </FormGroup>
                                 </div>
                                 <div className='dateEvent'>
                                     <FormGroup label="Data do evento">
                                         <input type='date' className='form-control' id='inputDate'
-                                            placeholder='Data do evento' value={this.state.dateEvent} onChange={(e) => this.setState({ dateEvent: e.target.value })}></input>
+                                            placeholder='Digite a data do evento' value={this.state.dateEvent} onChange={(e) => this.setState({ dateEvent: e.target.value })}></input>
                                     </FormGroup>
                                 </div>
                             </div>
@@ -293,28 +291,30 @@ export default class EventCreate extends React.Component {
                             <div className='half-container conteiner-down'>
                                 <div className='participants'>
                                     <FormGroup label="Qtd. de participantes">
-                                        <input type='participants' className='form-control' id='inputParticipants'
+                                        <input type = "number" min="1" className='form-control' id='inputParticipants'
                                             placeholder='Qtd. de participantes' value={this.state.qtdParticipants} onChange={(e) => this.setState({ qtdParticipants: e.target.value })}></input>
                                     </FormGroup>
                                 </div>
                                 <div className='samples'>
                                     <FormGroup label="Qtd. de amostras">
-                                        <input type='samples' className='form-control' id='inputSamples'
+                                        <input type = "number" min="1" className='form-control' id='inputSamples'
                                             placeholder='Qtd. de amostras' value={this.state.qtdSamples} onChange={(e) => this.setState({ qtdSamples: e.target.value })}></input>
                                     </FormGroup>
                                 </div>
                                 <div className='minimun-age'>
                                     <FormGroup label="Idade Mínima">
-                                        <input type='minimun-age' className='form-control' id='minimunAge'
+                                        <input type = "number" min="1" className='form-control' id='minimunAge'
                                             placeholder='Idade Mínima' value={this.state.minimunAge} onChange={(e) => this.setState({ minimunAge: e.target.value })}></input>
                                     </FormGroup>
                                 </div>
                             </div>
-                            <div className='CardTable'>
+                            <br/>
+                            <br/>
+                            {/* <div className='CardTable'>
                                 <CardProduct action='Adicionar' find={this.openModal} collection={this.state.addedProducts} remove={this.remove}
                                     label='Produtos' >
                                 </CardProduct>
-                            </div>
+                            </div> */}
 
                         </BigForm>
                     </div>

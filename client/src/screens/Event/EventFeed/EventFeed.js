@@ -118,13 +118,13 @@ export default class EventFeed extends React.Component{
                                     <div className='titulo'>
                                         <FormGroup label ="Titulo">
                                         <input type='titulo' className='form-control' id='inputTitulo'
-                                        placeholder='titulo' value={this.state.title} onChange={(e) => this.setState({title: e.target.value})}></input>
+                                        placeholder='Digite o titulo do evento' value={this.state.title} onChange={(e) => this.setState({title: e.target.value})}></input>
                                         </FormGroup>
                                     </div>
                                     <div className='local'>
                                         <FormGroup label ="Local">
                                         <input type='local' className='form-control' id='inputLocal'
-                                        placeholder='local' value={this.state.local} onChange={(e) => this.setState({local: e.target.value})}></input>
+                                        placeholder='Digite o local do evento' value={this.state.local} onChange={(e) => this.setState({local: e.target.value})}></input>
                                         </FormGroup>
                                     </div>
 
