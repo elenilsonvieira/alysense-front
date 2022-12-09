@@ -8,15 +8,15 @@ import ProductEvent from '../../../components/tables/Product/ProductEvent';
 import { showSucessMessage, showErrorMessage, showWarningMessage } from '../../../components/Toastr/Toastr'
 import Modal from 'react-modal';
 import AvaliationApiService from '../../../services/AvaliationApiService';
+import FormGroupCheck from '../../../components/forms/FormGroupCheck';
 import axios from 'axios';
 
 import ProductApiService from '../../../services/ProductApiService';
 
-export default class  EventCreate extends React.Component {
+export default class EventCreate extends React.Component {
 
 
     componentDidMount() {
-        Modal.setAppElement('#root');
         this.findProducts();
     }
 
@@ -29,13 +29,14 @@ export default class  EventCreate extends React.Component {
         products: [],
         admUser: '',
         avaliators: [],
-        minimunAge:1,
+        minimunAge: 1,
+        typeScales: '',
 
 
         id: '',
         name: '',
         avaliation: [],
-        toggleAvaliation:false
+        toggleAvaliation: false
 
     }
 
@@ -90,13 +91,15 @@ export default class  EventCreate extends React.Component {
         return errors;
     };
 
-    getLoggedUser=()=>{
+    getLoggedUser = () => {
         var value = localStorage.getItem('loggedUser');
-        var user = value[6]+value[7];
+        var user = value[6] + value[7];
         return user;
-      }
+    }
 
     submit = async () => {
+        this.checked()
+        console.log(this.state.typeScales)
 
         this.state.admUser = this.getLoggedUser()
         const errors = this.validate();
@@ -115,7 +118,8 @@ export default class  EventCreate extends React.Component {
             numberSample: this.state.qtdSamples,
             items: this.state.products,
             evaluators: this.state.avaliators,
-            admUser: this.state.admUser
+            admUser: this.state.admUser,
+            typeScale: this.state.typeScales
 
 
         },this.state.avaliation.forEach(element=>{
@@ -152,22 +156,20 @@ export default class  EventCreate extends React.Component {
 
     }
 
-     findProducts = () => {
+    findProducts = () => {
         this.find();
-    
+
     }
     remove = (product) => {
         axios.delete(`http://localhost:8081/api/product/${product.id}`)
-        .then( response =>
-            {
+            .then(response => {
                 console.log(response);
                 this.findProducts();
             }
-        ).catch ( error =>
-            {
+            ).catch(error => {
                 console.log(error.response);
             }
-        )
+            )
     }
     addAvaliation = () => {
         const elements = document.getElementsByClassName("checkAspect");
@@ -178,14 +180,14 @@ export default class  EventCreate extends React.Component {
                 let notIn = true;
                 for (let i = 0; i < this.state.avaliation.length; i++) {
                     if (this.state.avaliation[i].answer == element.value) {
-                        notIn = false; 
+                        notIn = false;
                     }
-                    
+
                 }
                 if (notIn == true) {
-                   this.state.avaliation.push({ answer: element.value }) 
+                    this.state.avaliation.push({ answer: element.value })
                 }
-                
+
             }
 
         }
@@ -193,12 +195,24 @@ export default class  EventCreate extends React.Component {
 
     }
     addon = (product) => {
-        this.setState({toggleAvaliation: true})
+        this.setState({ toggleAvaliation: true })
         this.state.addedProducts.push(product)
     }
 
     openProductViews = () => {
         this.props.history.push('/newProduct');
+    }
+
+    checked = () => {
+        if (document.getElementById("HEDONIC").checked) {
+            this.state.typeScales = "HEDONIC";
+        }
+        if (document.getElementById("HEDONIC_FACIAL").checked) {
+            this.state.typeScales = "HEDONIC_FACIAL";
+        }
+        if (document.getElementById("HEDONIC_NUMERAL").checked) {
+            this.state.typeScales = "HEDONIC_NUMERAL";
+        }
     }
 
     render() {
@@ -232,30 +246,46 @@ export default class  EventCreate extends React.Component {
                             <div className='half-container conteiner-down'>
                                 <div className='participants'>
                                     <FormGroup label="Qtd. de participantes">
-                                        <input type = "number" min="1" className='form-control' id='inputParticipants'
+                                        <input type="number" min="1" className='form-control' id='inputParticipants'
                                             placeholder='Qtd. de participantes' value={this.state.qtdParticipants} onChange={(e) => this.setState({ qtdParticipants: e.target.value })}></input>
                                     </FormGroup>
                                 </div>
                                 <div className='samples'>
                                     <FormGroup label="Qtd. de amostras">
-                                        <input type = "number" min="1" className='form-control' id='inputSamples'
+                                        <input type="number" min="1" className='form-control' id='inputSamples'
                                             placeholder='Qtd. de amostras' value={this.state.qtdSamples} onChange={(e) => this.setState({ qtdSamples: e.target.value })}></input>
                                     </FormGroup>
                                 </div>
                                 <div className='minimun-age'>
                                     <FormGroup label="Idade Mínima">
-                                        <input type = "number" min="1" className='form-control' id='minimunAge'
+                                        <input type="number" min="1" className='form-control' id='minimunAge'
                                             placeholder='Idade Mínima' value={this.state.minimunAge} onChange={(e) => this.setState({ minimunAge: e.target.value })}></input>
                                     </FormGroup>
                                 </div>
                             </div>
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
+                            <div class="card-header">Indique o tipo de escala que será utilizado:    </div>
+
+                            <div class="card-body radio-options ">
+                                <FormGroupCheck htmlFor="0" label="Hedônica">
+                                    <input type="radio" value="0" name="typeScale" id='HEDONIC' className='form-check-input' />
+                                </FormGroupCheck>
+                                <FormGroupCheck htmlFor="1" label="Hedônica Facial">
+                                    <input type="radio" value="1" name="typeScale" id='HEDONIC_FACIAL' className='form-check-input' />
+                                </FormGroupCheck>
+                                <FormGroupCheck htmlFor="2" label="Hedônica Numérica">
+                                    <input type="radio" value="2" name="typeScale" id='HEDONIC_NUMERAL' className='form-check-input' />
+                                </FormGroupCheck>
+                            </div>
+                            <br />
+                            <br />
                             <div className='CardTable'>
-                                <CardProduct action='Adicionar' find={this.openProductViews}  collection={this.state.products} remove={this.remove}
-                                   label='Produtos' >
+                                <CardProduct action='Adicionar' find={this.openProductViews} collection={this.state.products} remove={this.remove}
+                                    label='Produtos' >
                                 </CardProduct>
                             </div>
+
 
                         </BigForm>
                     </div>
