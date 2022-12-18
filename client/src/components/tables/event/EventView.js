@@ -69,7 +69,7 @@ export default props =>{
                         <button type='button' title='Excluir' className='btn btn-danger' onClick={e =>props.remove(item.id)}>
                         < MdDeleteForever size={25}/>
                         </button>
-                        <button type='button' title='Excluir' className='btn btn-success' onClick={e => props.showModalProduct()}>
+                        <button type='button' title='Avaliar' className='btn btn-success' onClick={e => props.showModalProduct(item.id)}>
                         i
                         </button>
                         

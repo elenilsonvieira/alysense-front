@@ -269,13 +269,13 @@ export default class EventCreate extends React.Component {
 
                             <div class="card-body radio-options ">
                                 <FormGroupCheck htmlFor="0" label="Hedônica">
-                                    <input type="radio" value="0" name="typeScale" id='HEDONIC' className='form-check-input' />
+                                    <input type="radio" value="HEDONIC" name="typeScale" id='HEDONIC' className='form-check-input' />
                                 </FormGroupCheck>
                                 <FormGroupCheck htmlFor="1" label="Hedônica Facial">
-                                    <input type="radio" value="1" name="typeScale" id='HEDONIC_FACIAL' className='form-check-input' />
+                                    <input type="radio" value="HEDONIC_FACIAL" name="typeScale" id='HEDONIC_FACIAL' className='form-check-input' />
                                 </FormGroupCheck>
                                 <FormGroupCheck htmlFor="2" label="Hedônica Numérica">
-                                    <input type="radio" value="2" name="typeScale" id='HEDONIC_NUMERAL' className='form-check-input' />
+                                    <input type="radio" value="HEDONIC_NUMERAL" name="typeScale" id='HEDONIC_NUMERAL' className='form-check-input' />
                                 </FormGroupCheck>
                             </div>
                             <br />

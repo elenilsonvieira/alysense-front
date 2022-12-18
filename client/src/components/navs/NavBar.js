@@ -19,8 +19,6 @@ import { AuthConsumer } from '../../main/SessionProvider';
                                 <NavBarItem render={props.isAuthenticated} href="/ProductView" label="Seus Produtos"/>
                                 <NavBarItem render={props.isAuthenticated} href="/newEvent" label="Criar Evento"/>
                                 <NavBarItem render={props.isAuthenticated} href="/EventFeed" label="Seus Eventos"/>
-                                <NavBarItem render={props.isAuthenticated} href="/Avaliation" label="Avaliar"/>
-                                <NavBarItem render={props.isAuthenticated} href="/result" label="Resultado"/>
                                 <NavBarItem render={props.isAuthenticated} href="/login" onClick={props.logout} label="Sair"/>
                             </ul>
                            

@@ -47,10 +47,10 @@ export default class EventFeed extends React.Component{
     }
 
     
-    showModalProduct = () =>{
-        
-        this.setState({isVisibleProdInfo: true})
+    showModalProduct = (idEvent) =>{
+        this.props.history.push(`/Avaliation/${idEvent}`);
     }
+    
     closeModalProdInfo = () =>{ 
         this.setState({isVisibleProdInfo: false})
     }

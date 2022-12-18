@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FormGroupCheck from '../forms/FormGroupCheck'
+import FormGroupCheck from './FormGroupCheck'
 
 export default class AvaliationCard extends React.Component {
     state = {

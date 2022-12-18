@@ -1,31 +1,26 @@
 import React from 'react';
 
-import AvaliationCard from '../../../components/cards/AvaliationCard'
+import AvaliationCard from '../../../components/forms/AvaliationCard'
 import "./AvaliationStyle.css"
-import AvaliateApiService from '../../../services/AvaliateApiService'
-import ProductApiService from '../../../services/ProductApiService';
-import axios from 'axios';
-import Select from 'react-select';
+import AvaliateApiService from '../../../services/AvaliateApiService';
+import EventApiService from '../../../services/EventApiService';
 
 export default class Avaliation extends React.Component {
 
     //apos as querys
     state = {
-        id: '',
-        question: '',
-        event: {
-            title: ''
-        },
-        evaluetItems: [
-            { evaluatorUser: '' },
-            { samples: [] },
-            { answer: "SOM" },
-            { note: '' }
+        idEvent: 0,
+        title:'',
+        dateEvent:'',
+        local:'',
+        qtdParticipants:0,
+        qtdSamples:0,
+        products: [],
+        admUser: 0,
+        avaliators:[],
+        aspects: [
+            { answer: "PALADAR" }
         ],
-        product: {
-            name: '',
-        },
-
         SOM: false,
         VISAO: false,
         PALADAR: false,
@@ -35,182 +30,122 @@ export default class Avaliation extends React.Component {
         VISAOnote: 0,
         PALADARnote: 0,
         TATOnote: 0,
-        TEXTURAnote: 0,
-        selectOptions: [],
-        selectProducts: []
+        TEXTURAnote: 0
+
     }
-    constructor(props) {
-        super(props);
-        this.services = new AvaliateApiService();
-        this.services = new ProductApiService();
-        this.state = {
-            id: '',
-            question: '',
-            event: {
-                title: ''
-            },
-            evaluetItems: [
-                { evaluatorUser: '' },
-                { samples: [] },
-                { answer: "SOM" },
-                { note: '' }
-            ],
-            product: {
-                name: '',
-            },
-            title: '',
-            selectOptions: [],
-            selectProducts: []
-        }
+    constructor() {
+        super();
+        this.service = new EventApiService();
 
     }
 
-    find = async () => {
-        var params = '?';
-
-        if (this.state.id !== '') {
-            if (params !== '?') {
-                params = `${params}&`;
-            }
-            params = `${params}id=${this.state.id}`;
-        }
-        await this.service.post(`/filter/${params}`)
-            .then(response => {
-                const avaliation = response.data;
-                this.setState({ avaliation })
-                console.log(this.state.avaliation)
-            }).catch(error => {
-                console.log(error.response);
-            })
-    }
-
-    async getEvents() {
-        const res = await axios.get('http://localhost:8081/api/event/all')
-        const data = res.data
-
-        const options = data.map(d => ({
-            "value": d.id,
-            "label": d.title
-        }))
-        this.setState({ selectOptions: options })
-
-    }
-
-    async getProducts(id) {
-        const res = await axios.get(`http://localhost:8081/api/event/filter?id=${id}`)
-        const data = res.data
-        console.log(data[0].items);
-        const options = data.map(d => ({
-            "value": d.items.id,
-            "label": d.items.name
-    }))
-        this.setState({ selectProducts: options })
-        this.setState(this.state.selectProducts=data[0].items)
-        this.state.selectProducts = data[0].items;
-    }
-
-    getLoggedUser = () => {
+      
+      getLoggedUser=()=>{
         var value = localStorage.getItem('loggedUser');
-        var user = value[6] + value[7];
+        var user = value[6]+value[7];
         return user;
-    }
+      }
 
-    setnote = (note) => {
+    setnote=(note) =>{
         this.setState(note)
     }
-    avaliate = async () => {
+    avaliate = async() => {
 
-        this.state.evaluetItems.forEach(async evaluetItems => {
-            console.log(evaluetItems.answer)
+        console.log(this.state.title)
+        
+        // this.state.aspects.forEach(async aspect=>{
+        //     console.log(aspect.answer)
+        //     await this.service.create([{
+        //         question: aspect.answer,
+        //         evaluator: this.getLoggedUser(),
+        //         note:{
+        //             scale: aspect.answer=="SOM"? this.state.SOMnote: (aspect.answer=="VISAO"?this.state.VISAOnote:(aspect.answer=="PALADAR"? this.state.PALADARnote: aspect.answer=="TATO"?this.state.TATOnote: aspect.answer=="TEXTURA"?this.state.TEXTURAnote:""))
+        //         }
+        //     }]).catch(error => {
+        //         console.log(error.response)
+        //     });
+        // })
 
-            await this.service.create([{
-                question: "",
-                event: this.avaliate.title,
-                evaluatorUser: this.getLoggedUser(),
-                samples: evaluetItems.value,
-                note: {
-                    question: evaluetItems.answer === "SOM" ? this.state.SOMnote : (evaluetItems.answer === "VISAO" ? this.state.VISAOnote : (evaluetItems.answer === "PALADAR" ? this.state.PALADARnote : evaluetItems.answer === "TATO" ? this.state.TATOnote : evaluetItems.answer === "TEXTURA" ? this.state.TEXTURAnote : ""))
-                }
-            }]).catch(error => {
-                console.log(error.response)
-            });
-        })
+
 
     }
 
     componentDidMount() {
-        this.getEvents();
-        this.state.evaluetItems.forEach(evaluetItems => {
-            console.log(evaluetItems.answer)
-            if (evaluetItems.answer === "SOM") {
+        const params = this.props.match.params;
+        console.log(params);
+        const eventId = params.id;
+        console.log(eventId);
+        this.findById(eventId);
+      
+        this.state.aspects.forEach(aspect => {
+            console.log(aspect.answer)
+            if (aspect.answer == "SOM") {
                 this.setState({ SOM: true })
             }
-            if (evaluetItems.answer === "VISAO") {
+            if (aspect.answer == "VISAO") {
                 this.setState({ VISAO: true })
             }
-            if (evaluetItems.answer === "PALADAR") {
+            if (aspect.answer == "PALADAR") {
                 this.setState({ PALADAR: true })
             }
-            if (evaluetItems.answer === "TATO") {
+            if (aspect.answer == "TATO") {
                 this.setState({ TATO: true })
             }
-            if (evaluetItems.answer === "TEXTURA") {
+            if (aspect.answer == "TEXTURA") {
                 this.setState({ TEXTURA: true })
             }
         });
     }
-    handleChange(e) {
-        
-       this.getProducts(e.value);
-        
-    }
 
-    handleProduct(e) {
-        
-    }
+    findById = async(eventId) =>{
+        await this.service.find(`/filter?id=${eventId}`)
+        .then(response=>{
+            const event = response.data[0];
+            console.log(response.data[0])
+            const idEvent = event.id;
+            const title = event.title;
+            const dateEvent =  this.convertFromStringToDate(event.dateEvent);
+            const local = event.local;
+            const qtdParticipants= event.peopleLimit;
+            const qtdSamples= event.numberSample;
+            const admUser = event.admUser;
+            this.setState({idEvent,title, dateEvent,local, qtdParticipants,qtdSamples,admUser});
+        }).catch(error=>{
+            console.log(error.response);
+        })
+    };
 
-    contemSelect() {
-        if (this.state.title !== "") {
-            this.getProducts(this.state.id);
-        }
-        return "";
-    }
+     convertFromStringToDate= (args) =>{
+         var veri = args[1]
+         if(veri<10){
+             veri= "-0"+args[1];
+         }
+         else{
+            veri= "-"+args[1];
+         }
+        const result = args[0]+veri+"-"+args[2];
+       return result;
+    };
+
+
     render() {
-        console.log(this.state.selectOptions)
         return (
             <div>
                 <div className='avaliation-container'>
 
                     <div className="card border-secondary mb-3">
                         <div className="card-body card-header-body">
-                            <br />
-                            <br />
-
-                            <div>
-                                <h5> Evento: </h5>
-                                <Select options={this.state.selectOptions} onChange={this.handleChange.bind(this)} />
-                            </div>
-                            <br />
-                            <div>
-                                <h5>Produto: </h5>
-                                <Select options={this.state.selectProducts} onChange={this.handleChange.bind(this)} />
-                                
-                            </div>
-                            <br />
-
-                            <div>
-                                <h5>Amostra: </h5>
-                                <Select options={this.state.selectProducts} onChange={this.handleProduct.bind(this)} />
-                            </div>
+                            {/* <h2>Produto: {this.state.product.name}</h2>
+                            <h3>Amostra: {this.state.product.amostra}</h3> */}
                         </div>
                     </div>
 
+
+
                     <h4>Insira sua nota diante dos aspectos indicados com base na amostra consumida</h4>
-                    <h5>Legenda:
-                        <br />
-                        0 = Muito ruim
-                        <br />
-                        10 = Muito bom</h5>
+                    <h5>Legenda: 0 = muito ruim, 10 = muito bom</h5>
+
+
 
                     <div className="avaliation-form">
 
@@ -222,8 +157,9 @@ export default class Avaliation extends React.Component {
 
                     </div>
                     <div className='avaliate-button'>
-                        <button type="button" className="btn btn-primary" onClick={this.avaliate}>Avaliar</button>
+                        <button type="button" class="btn btn-primary" onClick={this.avaliate}>Avaliar</button>
                     </div>
+
 
                 </div>
             </div>
