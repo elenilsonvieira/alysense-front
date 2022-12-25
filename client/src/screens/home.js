@@ -1,12 +1,18 @@
 import React from 'react';
+import '../screens/home.css';
+import Alysense from '../screens/Alysense.png';
+import FormGroup from '../../src/components/forms/FormGroup';
+import BigForm from '../../src/components/forms/BigForm';
 
 
-export default class Home extends React.Component {
+import { withRouter } from 'react-router-dom';
 
-    state={
-        
+import 'bootswatch/dist/journal/bootstrap.css';
+class Home extends React.Component {
+
+    state = {
     }
-    componentDidMount(){
+    /* componentDidMount(){
         this.enter();
     }
 
@@ -17,14 +23,37 @@ export default class Home extends React.Component {
         localStorage.setItem('typeUser', 'ADMIN');
         this.props.history.push('/newProduct')
 
-    }
+    } */
     render() {
         return (
+            <div className="register">
 
-            <div className="Home">
-               
+                <div>
+                    <div className="input-container">
+                        <img class="displayed" src={Alysense} className="circle responsive-img" alt=''/>
+                    </div>
+
+                </div>
+                <div className='register-container'>
+                    <div className='register-form'>
+                        <BigForm title="Welcome">
+
+                            <div className="input-container">
+                                <FormGroup htmlFor="" label="">
+
+                                </FormGroup>
+                            </div>
+                            <div className="input-container">
+                            </div>
+                        </BigForm>
+                    </div>
+                </div>
+
             </div>
+
         );
+
     }
 
 }
+export default withRouter(Home);

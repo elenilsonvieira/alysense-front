@@ -8,7 +8,7 @@ import ProductCreate from '../screens/product/productCreate/ProductCreate';
 import ProductView from '../screens/product/productView/ProductView'
 import EventCreate from '../screens/Event/EventCreate/EventCreate';
 import EventFeed from '../screens/Event/EventFeed/EventFeed';
-import home from '../screens/home'
+import Home from '../screens/home';
 import Result from '../screens/avaliation/results/Result';
 import {Route, BrowserRouter, Switch, Redirect} from "react-router-dom";
 import {AuthConsumer} from '../main/SessionProvider'
@@ -34,8 +34,11 @@ function AppRoutes(props) {
     return(
         <BrowserRouter>
             <Switch>
+            
                 <Route exact path="/" component={Register} />
                 <Route path="/login" component={Login} />
+                <Route path="/home" component={Home} />
+                <RestrictedRoute show={props.isAuthenticated} component={Home} path="/home" />
                 <RestrictedRoute show={props.isAuthenticated} component={Avaliation} path="/avaliation/:id"/>
                 <RestrictedRoute show={props.isAuthenticated} component={ProductUpdate} path="/updateproduct/:id" />
                 <RestrictedRoute show={props.isAuthenticated} component={EventUpdate} path="/EventUpdate/:id" />
@@ -43,7 +46,6 @@ function AppRoutes(props) {
                 <RestrictedRoute show={props.isAuthenticated} component={ProductView} path="/ProductView" />
                 <RestrictedRoute show={props.isAuthenticated} component={EventCreate} path="/newEvent" />
                 <RestrictedRoute show={props.isAuthenticated} component={EventFeed} path="/EventFeed" />
-                <RestrictedRoute show={props.isAuthenticated} component={home} path="/home" />
                 <RestrictedRoute show={props.isAuthenticated} component={Result} path="/result" />
             </Switch>
         </BrowserRouter>

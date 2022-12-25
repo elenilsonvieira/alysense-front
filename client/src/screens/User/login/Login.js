@@ -2,7 +2,6 @@ import React from 'react';
 
 //import "./Register.css"
 
-
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import FormGroup from '../../../components/forms/FormGroup'
@@ -51,7 +50,7 @@ class Login extends React.Component {
             {
                 if(user){
                     showSucessMessage(`Usuário ${user.name}, logado!`)
-                    this.props.history.push('/EventFeed');
+                    this.props.history.push('/Home');
                 }else{
                     showErrorMessage('Login inválido!')
                 }

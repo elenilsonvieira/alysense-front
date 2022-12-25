@@ -16,6 +16,7 @@ import { AuthConsumer } from '../../main/SessionProvider';
                         <div className="collapse navbar-collapse" id="navbarColor01">
                             <ul className="navbar-nav me-auto">
                                 <NavBarItem href="/home" label="Home"/>
+                                <NavBarItem render={props.isAuthenticated} href="/home" label="Home"/>
                                 <NavBarItem render={props.isAuthenticated} href="/ProductView" label="Seus Produtos"/>
                                 <NavBarItem render={props.isAuthenticated} href="/newEvent" label="Criar Evento"/>
                                 <NavBarItem render={props.isAuthenticated} href="/EventFeed" label="Seus Eventos"/>
